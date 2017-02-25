@@ -1,0 +1,18 @@
+{
+  "name": "moving-partial-circles",
+  "version": "1.0.0",
+  "description": "Moving partial circles animation.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emil Haugberg <emilveen@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}
