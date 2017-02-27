@@ -1,14 +1,13 @@
 module Main where
 
 import Control.Monad.Eff (Eff, foreachE)
-import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Ref (REF, modifyRef, newRef, readRef)
 import Control.Monad.Eff.Timer (TIMER, setInterval)
 import Data.Array (zipWith)
 import Data.Maybe (Maybe(..))
-import Graphics.Canvas
+import Graphics.Canvas (Arc, CANVAS, arc, beginPath, clearRect, closePath, getCanvasElementById, getContext2D, setLineWidth, setStrokeStyle, stroke)
 import Math as Math
-import Prelude
+import Prelude (Unit, bind, map, negate, void, ($), (*), (+), (/), (==), (||))
 import Types (Color(..), Angle, Circle, Radius, color)
 
 type CanvasEff a = forall e. Eff (canvas :: CANVAS | e) a
@@ -29,7 +28,7 @@ startingAngles :: Array Angle
 startingAngles = [ 0.0, Math.pi * 0.5, Math.pi, Math.pi * 1.5 ]
 
 angleRadiuss :: Array { angle :: Angle, radius :: Radius }
-angleRadiuss = zipWith (\a r -> { angle: a, radius: r }) startingAngles radiuss
+angleRadiuss = zipWith (\angle radius -> { angle, radius }) startingAngles radiuss
 
 updateCircles :: Array Circle -> Array Circle
 updateCircles = map move
@@ -54,7 +53,7 @@ colors = [ Blue, Red, Green, Yellow ]
 circles :: Array Circle
 circles = zipWith (\color arc -> { color, arc }) colors arcs
 
-main :: forall e. Partial => Eff ( console :: CONSOLE, ref :: REF, timer :: TIMER, canvas :: CANVAS | e ) Unit
+main :: forall e. Partial => Eff ( ref :: REF, timer :: TIMER, canvas :: CANVAS | e ) Unit
 main = void $ do
   Just canvasElem <- getCanvasElementById "canvas"
   ctx             <- getContext2D canvasElem
