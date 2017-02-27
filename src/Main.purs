@@ -33,7 +33,7 @@ angleRadiuss = zipWith (\angle radius -> { angle, radius }) startingAngles radiu
 updateCircles :: Array Circle -> Array Circle
 updateCircles = map move
   where
-    move c = if c.color == Yellow || c.color == Green
+    move c = if c.color == Blue || c.color == Green
       then c { arc {start = c.arc.start + (-1.0 * speed), end = c.arc.end + (-1.0 * speed) }}
       else c { arc {start = c.arc.start + speed, end = c.arc.end + speed }}
 
